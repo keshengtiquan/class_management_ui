@@ -1,87 +1,145 @@
 <template>
-  <header class="header">
-    <div class="top">
-      <ul class="top-bar">
-        <li :class="['item', current == '/dashboard' ? 'active': '']">
-          <router-link to="/dashboard">首页</router-link>
-        </li>
-        <li :class="['item', current == '/homework/completion' ? 'active': '']">
-          <router-link to="/homework/completion">作业情况</router-link>
-        </li>
-      </ul>
+  <header class="joe_header">
+    <div class="joe_header__above">
+      <div class="joe_container">
+        <a class="avatar">
+          <img src=""/>
+        </a>
+        <span class="space"></span>
+        <nav class="nav">
+          <div v-for="item in menus" :class="['nav-item', item.key == current ? 'is-active':'']" :key="item.key"
+               @click="to(item.key)">
+            {{ item.label }}
+          </div>
+        </nav>
+      </div>
     </div>
   </header>
 </template>
 <script lang="ts" setup>
-import {useRoute} from "vue-router";
-import {onMounted, ref} from "vue";
+import {ref, watch} from "vue";
+import {useRoute, useRouter} from "vue-router";
 
+const current = ref('')
 const route = useRoute()
-const current = ref()
-
-onMounted(() => {
-  current.value = route.fullPath
-})
-
+const router = useRouter()
+const menus = ref([
+  {label: '首页', key: '/dashboard'},
+  {label: '优秀作文', key: '/composition/index'},
+  {label: '优秀作业', key: '/homework/index'},
+  {label: '照片', key: '/photos/index'},
+  {label: '诗词', key: '/poetry/index'},
+])
+const indicator = ref()
+const to = (key: any) => {
+  router.push(key)
+}
+watch(() => route.path, (newValue) => {
+  current.value = newValue
+}, {immediate: true})
 </script>
 <style scoped lang="scss">
-.header {
-  width: 100%;
+.joe_header {
+  position: relative;
+  z-index: 100;
   height: 60px;
-  display: flex;
-  justify-content: center;
-  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .2);
-  color: var(--text-color);
 
-  .top {
-    width: 1200px;
+  .joe_header__above {
+    position: fixed;
+    top: 0;
+    z-index: 6;
+    width: 100%;
+    height: 60px;
+    background: var(--menu-bg-color);
+    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .2);
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
 
-    .top-bar {
+    .joe_container {
+      max-width: 1200px;
       display: flex;
+      height: 60px;
       align-items: center;
-      height: 100%;
+      width: 100%;
+      padding: 0 15px;
 
-      .active {
-        color: var(--theme);
+      .avatar {
+        background-color: red;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
       }
 
-      .item {
-        position: relative;
-        height: 100%;
-        line-height: 60px;
-        padding: 0 8px;
-        margin-right: 10px;
-        font-size: 15px;
-        cursor: url("/link.cur"), auto !important;
-        &.active::after {
-          opacity: 1;
-          transform: scaleX(1);
-        }
-        &:hover {
-          color: var(--theme);
-
-          &::after {
-            opacity: 1;
-            transform: scaleX(1);
-          }
-        }
-
-        &::after {
-          opacity: 0;
-          position: absolute;
-          bottom: 0;
-          left: 6px;
-          right: 6px;
-          content: "";
-          height: 3px;
-          background-color: var(--theme);
-          border-radius: 6px 6px 0 0;
-          transition: opacity .5s, transform .5s, -webkit-transform .5s;
-        }
+      .space {
+        margin: 0 14px;
+        width: 1px;
+        height: 20px;
+        background-color: #ebeef5;
       }
     }
   }
 }
+
+.nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-item {
+  padding: 0 8px;
+  text-decoration: none;
+  transition: .3s;
+  margin-right: 10px;
+  z-index: 1;
+  position: relative;
+  height: 60px;
+  line-height: 60px;
+  &:hover {
+    cursor: url("/link.cur"), auto !important;
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background-color: var(--theme);
+    border-radius: 8px 8px 0 0;
+    opacity: 0;
+    transition: .5s ease;
+  }
+
+  &:not(.is-active):hover {
+    color: var(--theme);
+  }
+
+  &:not(.is-active):hover:after {
+    left: 10%;
+    width: 80%;
+    opacity: 0.5;
+  }
+
+  &.is-active::after {
+    left: 10%;
+    width: 80%;
+    opacity: 1;
+  }
+
+  &.is-active {
+    color: var(--theme);
+  }
+}
+
+//.nav-item:not(.is-active):hover:after {
+//  left: 0;
+//  width: 100%;
+//  opacity: 1;
+//
+//}
+
 
 </style>
 

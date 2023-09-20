@@ -19,20 +19,58 @@ const route:RouteRecordRaw[] = [
     ],
   },
   {
-    path: '/homework',
+    path: '/photos',
     component: Layouts,
-    redirect: '/completion',
     children: [
       {
-        path: '/homework/completion',
-        component: () => import('@/views/homework/index.vue'),
-        name: 'Completion',
+        path: '/photos/index',
+        component: () => import('@/views/photos/index.vue'),
+        name: 'Photos',
         meta: {
-          title: '作业完成情况'
+          title: '照片'
         }
-      }
+      },
     ]
-  }
+  },
+  {
+    path: '/poetry',
+    component: Layouts,
+    children: [
+      {
+        path: '/poetry/index',
+        component: () => import('@/views/poetry/index.vue'),
+        name: 'Poetry',
+        meta: {
+          title: '诗词'
+        }
+      },
+    ]
+  },
+  {
+    path: '/homework',
+    component: Layouts,
+    children: [
+      {
+        path: '/homework/index',
+        component: () => import('@/views/homework/index.vue'),
+        name: 'Homework',
+        meta: {
+          title: '优秀作业'
+        }
+      },
+    ]
+  },
+  {
+    path: '/composition',
+    component: Layouts,
+    children: [
+      {
+        path: '/composition/index',
+        component: () => import('@/views/composition/index.vue'),
+        name: 'Composition',
+      },
+    ]
+  },
 ]
 
 const router = createRouter({

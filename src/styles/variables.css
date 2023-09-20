@@ -1,4 +1,24 @@
 :root {
+    --menu-bg-color: #f9f9f9;
     --theme: #fb6c28;
-    --text-color: #303133;
+    --main: #303133;
+    --minor: #909399;
+    --radius-wrap: 8px;
+    --box-shadow: 0 0px 10px -5px #949494;
+    --background: #fff;
+    --link-color: #606266;
+    --poetry-bg-color: #efefe7;
+    --classA: #dcdfe6;
+    --classB: #e4e7ed;
+    --classC: #ebeef5;
+    --classD: #f2f6fc;
+    --classE: #dcdcdc;
+    --classF: #333;
+    --classG: #dcdcdc;
+    --classH: #e9f2ff;
+    --classI: #5a3713;
+    --classJ: #f9e5fb;
+    --classK: #e4e7ed;
+    --classL: #666;
+    --classM: #2d2e37;
 }

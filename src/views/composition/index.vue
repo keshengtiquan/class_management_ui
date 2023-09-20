@@ -1,6 +1,6 @@
 <template>
   <div>
-    优秀作业
+    优秀作文
   </div>
 </template>
 
